@@ -39,7 +39,7 @@ class Generator
   end
 
   def generate_password
-    while @len <=@max_len
+    while @len <= @max_len
       @generated_password += generate_char.to_s
     end
     @generated_password
