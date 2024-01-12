@@ -14,6 +14,20 @@ class Locker
     self.json_data = JSON.parse(File.read(self.json_filepath))
   end
 
+  def list_platforms
+    load_data
+    if self.json_data.empty?
+      puts "\nYou have no saved passwords"
+    else
+      puts "\nYou have saved passwords for:"
+      self.json_data.each do |key, item|
+        puts "---#{key}---"
+      end
+    end
+    puts ""
+  end
+
+
   def write_content
     File.open(self.json_filepath, "w") do |file|
       JSON.dump(self.json_data, file)
@@ -23,7 +37,7 @@ class Locker
   def create_password(key, value)
     load_data
     if self.json_data[key]
-      puts "There's already a password saved for: '#{key}'"
+      puts "\nThere's already a password saved for: '#{key}'"
       puts "Do you want to override it with a new generated password? [Y/N]"
       choice = gets.chomp
       if choice.upcase == "N"
